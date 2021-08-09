@@ -1,3 +1,6 @@
 /tk
 .dockerignore
 db_password.txt
+db_host.txt
+db_name.txt
+./app/connectors.cnf
