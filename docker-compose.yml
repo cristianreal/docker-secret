@@ -1,0 +1,58 @@
+version: "3.7"
+
+services:
+    app:
+        build: ./app
+        command: >
+            sh -c 'sleep 40 && flask run'
+        restart: always
+        depends_on:
+            - db
+            - redis
+        ports:
+            - 5000:5000
+        environment:
+            FLASK_ENV: development
+            FLASK_APP: app.py
+            FLASK_RUN_HOST: 0.0.0.0
+        networks:
+            - net
+        volumes:
+            - ./app:/code
+    db:
+        image: mysql:8.0.26
+        command: '--default-authentication-plugin=mysql_native_password'
+        restart: always
+        volumes:
+            - ./db:/docker-entrypoint-initdb.d:ro
+        ports:
+            - 32000:3306
+        secrets:
+            - db_password
+            - db_host
+            - db_name
+        environment:
+            MYSQL_ROOT_PASSWORD: /run/secrets/db_password
+            MYSQL_HOST: /run/secret/db_host
+            MYSQL_DB: /run/secrets/db_name
+        networks:
+            - net
+    redis:
+        image: redis:alpine
+        restart: always
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        ports:
+            - 33000:6379
+        networks:
+            - net
+networks:
+    net:
+        driver: bridge
+secrets:
+    db_password:
+        file: ./db_password.txt
+    db_host:
+        file: ./db_host.txt
+    db_name:
+        file: ./db_name.txt

@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %}
+<form method="post">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required/><br /><br />
+
+  <label for="email">Email:</label>
+  <input type="text" id="email" name="email" required/><br /><br />
+
+  <label for="pass">Password:</label>
+  <input type="password" id="pass" name="pass" required/><br /><br />
+
+  <!-- <input type="submit" value="Submit"> -->
+
+  <button 
+    type="submit" class="btn btn-primary"
+    formaction="/sql" formmethod="POST"
+    >SAVE TO SQL</button>
+
+
+  <button 
+    type="submit" class="btn btn-secondary"
+    formaction="/redis" formmethod="POST"
+    >SAVE TO CACHE</button>
+  <br/><br/>
+
+  <label for="sql">Items stored in SQL:</label>
+  
+  <input type="text" readonly="" id="sql" name="sql" 
+    {% if (ssql == None or ssql ==0) %} value="" {% else %} value= {{ ssql }} {% endif %} />
+  
+    <br/><br/>
+
+  <label for="cache">Items stored in Cache:</label>
+
+  <input type="text" readonly="" id="cache" name="cache" 
+    {% if (scache == None or scache ==0) %} value="" {% else %} value= {{ scache }} {% endif %} />
+  
+    <br/><br/>
+</form>
+{% endblock %}

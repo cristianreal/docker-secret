@@ -1,0 +1,6 @@
+HMSET user:1 name "Juan" email "juan@gmail.com" password "123456"
+HMSET user:2 name "Pedro" email "pedro@gmail.com" password "123456"
+HMSET user:3 name "Carlos" email "carlos@gmail.com" password "123456"
+HMSET user:4 name "Andres" email "andres@gmail.com" password "123456"
+HMSET user:5 name "Antonio" email "antonio@gmail.com" password "123456"
+KEYS user*

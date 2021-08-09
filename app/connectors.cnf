@@ -1,0 +1,6 @@
+[mysqld-8.0.26]
+user=root
+password=root
+host=db
+port=3306
+database=testdb
